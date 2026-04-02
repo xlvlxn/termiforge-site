@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Support — TermiForge</title>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --bg: #0d1117; --surface: #161b22; --border: #30363d;
+      --accent: #2f81f7; --text: #e6edf3; --muted: #8b949e;
+    }
+    body { background: var(--bg); color: var(--text); font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif; line-height: 1.7; }
+    a { color: var(--accent); }
+    nav { display: flex; align-items: center; justify-content: space-between; padding: 18px 40px; border-bottom: 1px solid var(--border); }
+    .nav-logo { font-size: 1.1rem; font-weight: 700; color: var(--text); text-decoration: none; }
+    .nav-logo span { color: var(--accent); }
+    .content { max-width: 720px; margin: 0 auto; padding: 72px 24px; }
+    h1 { font-size: 2.2rem; font-weight: 800; letter-spacing: -0.8px; margin-bottom: 12px; }
+    .subtitle { color: var(--muted); font-size: 1.05rem; margin-bottom: 56px; }
+    h2 { font-size: 1.2rem; font-weight: 700; margin: 40px 0 12px; }
+    p { color: var(--muted); margin-bottom: 16px; font-size: 0.95rem; }
+    .card { background: var(--surface); border: 1px solid var(--border); border-radius: 12px; padding: 28px; margin-bottom: 20px; }
+    .card h3 { font-size: 1rem; font-weight: 700; margin-bottom: 8px; }
+    .card p { margin: 0; }
+    footer { padding: 40px; border-top: 1px solid var(--border); text-align: center; }
+    footer p { color: var(--muted); font-size: 0.85rem; }
+  </style>
+</head>
+<body>
+
+  <nav>
+    <a href="index.html" class="nav-logo">Termi<span>Forge</span></a>
+  </nav>
+
+  <div class="content">
+    <h1>Support</h1>
+    <p class="subtitle">We're here to help. Find answers below or reach out directly.</p>
+
+    <h2>Frequently Asked Questions</h2>
+
+    <div class="card">
+      <h3>How do I add a server?</h3>
+      <p>Open the Home tab, tap "Add Server", and enter your hostname, port (default 22), username, and choose password or SSH key authentication.</p>
+    </div>
+
+    <div class="card">
+      <h3>My SSH session disconnects after locking the screen. What can I do?</h3>
+      <p>TermiForge uses TCP keepalive and automatic reconnection to maintain sessions through background and screen lock. If your server is configured with a very short idle timeout, consider increasing the <code>ClientAliveInterval</code> on the server side.</p>
+    </div>
+
+    <div class="card">
+      <h3>How do I use the Web browser tab?</h3>
+      <p>The Web tab is a Pro feature. Start a free 14-day trial by tapping "New Tab" → "Web" → "Start 14-Day Free Trial". Once active, enter your server, the remote port your service is running on, and the app will tunnel it through SSH.</p>
+    </div>
+
+    <div class="card">
+      <h3>How do I import an SSH key?</h3>
+      <p>Go to the Home tab → SSH Keys → Import. You can paste a PEM key directly or import a file from the Files app. Both RSA and Ed25519 keys are supported.</p>
+    </div>
+
+    <div class="card">
+      <h3>My Pro purchase isn't showing after reinstalling the app.</h3>
+      <p>Open a Web tab → you'll see the paywall → tap "Restore Purchase". Your purchase is tied to your Apple ID and will be restored automatically.</p>
+    </div>
+
+    <div class="card">
+      <h3>Is my data safe? Where are my credentials stored?</h3>
+      <p>Passwords and SSH keys are stored exclusively in the iOS Keychain on your device. They are never sent to any server operated by TermiForge, and they are not included in iCloud backups unless you have explicitly enabled Keychain sync.</p>
+    </div>
+
+    <h2>Contact</h2>
+    <p>For bug reports, feature requests, or anything else, please open an issue on GitHub:</p>
+    <p><a href="https://github.com/xlvlxn/termiforge/issues">github.com/xlvlxn/termiforge/issues</a></p>
+
+  </div>
+
+  <footer>
+    <p>© 2025 TermiForge. <a href="privacy.html">Privacy Policy</a></p>
+  </footer>
+
+</body>
+</html>

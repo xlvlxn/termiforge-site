@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Privacy Policy — TermiForge</title>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --bg: #0d1117; --surface: #161b22; --border: #30363d;
+      --accent: #2f81f7; --text: #e6edf3; --muted: #8b949e;
+    }
+    body { background: var(--bg); color: var(--text); font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif; line-height: 1.75; }
+    a { color: var(--accent); }
+    nav { display: flex; align-items: center; justify-content: space-between; padding: 18px 40px; border-bottom: 1px solid var(--border); }
+    .nav-logo { font-size: 1.1rem; font-weight: 700; color: var(--text); text-decoration: none; }
+    .nav-logo span { color: var(--accent); }
+    .content { max-width: 720px; margin: 0 auto; padding: 72px 24px; }
+    h1 { font-size: 2.2rem; font-weight: 800; letter-spacing: -0.8px; margin-bottom: 8px; }
+    .date { color: var(--muted); font-size: 0.9rem; margin-bottom: 48px; }
+    h2 { font-size: 1.1rem; font-weight: 700; margin: 36px 0 10px; }
+    p { color: var(--muted); margin-bottom: 16px; font-size: 0.95rem; }
+    ul { color: var(--muted); margin: 0 0 16px 20px; font-size: 0.95rem; }
+    li { margin-bottom: 6px; }
+    footer { padding: 40px; border-top: 1px solid var(--border); text-align: center; }
+    footer p { color: var(--muted); font-size: 0.85rem; }
+  </style>
+</head>
+<body>
+
+  <nav>
+    <a href="index.html" class="nav-logo">Termi<span>Forge</span></a>
+  </nav>
+
+  <div class="content">
+    <h1>Privacy Policy</h1>
+    <p class="date">Effective date: April 2025</p>
+
+    <p>TermiForge ("we", "our", or "the app") is committed to protecting your privacy. This policy explains what data the app handles and how.</p>
+
+    <h2>Data We Do Not Collect</h2>
+    <p>TermiForge does not collect, transmit, or store any personal data on our servers. We have no backend, no analytics, and no account system. We never see your:</p>
+    <ul>
+      <li>SSH credentials, passwords, or private keys</li>
+      <li>Hostnames or server addresses</li>
+      <li>Terminal output or file contents</li>
+      <li>Usage patterns or session data</li>
+    </ul>
+
+    <h2>Data Stored on Your Device</h2>
+    <p>The following information is stored locally on your device only:</p>
+    <ul>
+      <li><strong>SSH credentials and keys</strong> — stored in the iOS Keychain, encrypted at rest by the operating system</li>
+      <li><strong>Server configurations</strong> — stored in the app's sandboxed local storage</li>
+      <li><strong>Pro trial date</strong> — stored in the iOS Keychain on this device only, not synchronized to iCloud</li>
+    </ul>
+
+    <h2>In-App Purchase</h2>
+    <p>TermiForge Pro is sold through Apple's App Store. All payment processing is handled by Apple. We do not receive or store any payment information. Purchase receipts are verified through Apple's StoreKit framework directly on your device.</p>
+
+    <h2>Network Connections</h2>
+    <p>The app makes outbound connections only to the servers you explicitly configure. No data is routed through or logged by TermiForge infrastructure.</p>
+
+    <h2>Third-Party SDKs</h2>
+    <p>TermiForge does not include any third-party analytics, advertising, or tracking SDKs.</p>
+
+    <h2>Children's Privacy</h2>
+    <p>TermiForge is not directed at children under 13 and does not knowingly collect information from children.</p>
+
+    <h2>Changes to This Policy</h2>
+    <p>If this policy changes materially, we will update the effective date above. Continued use of the app constitutes acceptance of the updated policy.</p>
+
+    <h2>Contact</h2>
+    <p>Questions? Open an issue at <a href="https://github.com/xlvlxn/termiforge/issues">github.com/xlvlxn/termiforge/issues</a>.</p>
+  </div>
+
+  <footer>
+    <p>© 2025 TermiForge. <a href="support.html">Support</a></p>
+  </footer>
+
+</body>
+</html>
