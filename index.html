@@ -1,377 +1,194 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>TermiForge — SSH Terminal & SFTP for iPad</title>
-  <meta name="description" content="A full remote dev environment for iPad. SSH terminal, SFTP file manager with built-in editor, and a browser that reaches private services through SSH tunnels." />
-  <style>
-    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-
-    :root {
-      --bg: #0d1117;
-      --surface: #161b22;
-      --border: #30363d;
-      --accent: #2f81f7;
-      --accent-dim: #1a3f7a;
-      --text: #e6edf3;
-      --muted: #8b949e;
-      --green: #3fb950;
-    }
-
-    body {
-      background: var(--bg);
-      color: var(--text);
-      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
-      line-height: 1.6;
-    }
-
-    a { color: var(--accent); text-decoration: none; }
-    a:hover { text-decoration: underline; }
-
-    /* NAV */
-    nav {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      padding: 18px 40px;
-      border-bottom: 1px solid var(--border);
-      position: sticky;
-      top: 0;
-      background: rgba(13,17,23,0.92);
-      backdrop-filter: blur(12px);
-      z-index: 100;
-    }
-    .nav-logo {
-      font-size: 1.1rem;
-      font-weight: 700;
-      letter-spacing: -0.3px;
-      color: var(--text);
-    }
-    .nav-logo span { color: var(--accent); }
-    nav ul { list-style: none; display: flex; gap: 32px; }
-    nav ul li a { color: var(--muted); font-size: 0.9rem; }
-    nav ul li a:hover { color: var(--text); text-decoration: none; }
-
-    /* HERO */
-    .hero {
-      text-align: center;
-      padding: 96px 24px 72px;
-      max-width: 760px;
-      margin: 0 auto;
-    }
-    .badge {
-      display: inline-block;
-      background: var(--accent-dim);
-      color: var(--accent);
-      font-size: 0.75rem;
-      font-weight: 600;
-      letter-spacing: 0.08em;
-      text-transform: uppercase;
-      padding: 4px 12px;
-      border-radius: 20px;
-      margin-bottom: 24px;
-    }
-    .hero h1 {
-      font-size: clamp(2.4rem, 6vw, 3.6rem);
-      font-weight: 800;
-      letter-spacing: -1.5px;
-      line-height: 1.1;
-      margin-bottom: 24px;
-    }
-    .hero h1 em { color: var(--accent); font-style: normal; }
-    .hero p {
-      font-size: 1.15rem;
-      color: var(--muted);
-      max-width: 560px;
-      margin: 0 auto 40px;
-    }
-    .cta-group { display: flex; gap: 14px; justify-content: center; flex-wrap: wrap; }
-    .btn-primary {
-      background: var(--accent);
-      color: #fff;
-      padding: 13px 28px;
-      border-radius: 8px;
-      font-weight: 600;
-      font-size: 0.95rem;
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      transition: opacity .15s;
-    }
-    .btn-primary:hover { opacity: .85; text-decoration: none; }
-    .btn-secondary {
-      background: var(--surface);
-      color: var(--text);
-      padding: 13px 28px;
-      border-radius: 8px;
-      font-weight: 600;
-      font-size: 0.95rem;
-      border: 1px solid var(--border);
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      transition: border-color .15s;
-    }
-    .btn-secondary:hover { border-color: var(--accent); text-decoration: none; }
-
-    /* SCREENSHOTS */
-    .screenshots {
-      padding: 0 24px 80px;
-      overflow: hidden;
-    }
-    .screenshot-track {
-      display: flex;
-      gap: 16px;
-      overflow-x: auto;
-      padding-bottom: 16px;
-      scroll-snap-type: x mandatory;
-      -webkit-overflow-scrolling: touch;
-    }
-    .screenshot-track::-webkit-scrollbar { height: 4px; }
-    .screenshot-track::-webkit-scrollbar-track { background: var(--surface); border-radius: 2px; }
-    .screenshot-track::-webkit-scrollbar-thumb { background: var(--border); border-radius: 2px; }
-    .screenshot-track img {
-      height: 340px;
-      width: auto;
-      border-radius: 12px;
-      border: 1px solid var(--border);
-      scroll-snap-align: start;
-      flex-shrink: 0;
-      display: block;
-    }
-
-    /* FEATURES */
-    .features {
-      padding: 80px 24px;
-      max-width: 1100px;
-      margin: 0 auto;
-    }
-    .section-label {
-      text-align: center;
-      font-size: 0.8rem;
-      font-weight: 600;
-      letter-spacing: 0.1em;
-      text-transform: uppercase;
-      color: var(--accent);
-      margin-bottom: 12px;
-    }
-    .section-title {
-      text-align: center;
-      font-size: clamp(1.6rem, 4vw, 2.4rem);
-      font-weight: 800;
-      letter-spacing: -0.8px;
-      margin-bottom: 56px;
-    }
-    .feature-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-      gap: 24px;
-    }
-    .feature-card {
-      background: var(--surface);
-      border: 1px solid var(--border);
-      border-radius: 12px;
-      padding: 28px;
-      transition: border-color .2s;
-    }
-    .feature-card:hover { border-color: var(--accent); }
-    .feature-icon {
-      font-size: 1.8rem;
-      margin-bottom: 16px;
-      display: block;
-    }
-    .feature-card h3 {
-      font-size: 1.05rem;
-      font-weight: 700;
-      margin-bottom: 10px;
-    }
-    .feature-card p {
-      font-size: 0.9rem;
-      color: var(--muted);
-      line-height: 1.65;
-    }
-
-    /* PRO */
-    .pro-section {
-      padding: 80px 24px;
-      background: var(--surface);
-      border-top: 1px solid var(--border);
-      border-bottom: 1px solid var(--border);
-    }
-    .pro-inner {
-      max-width: 640px;
-      margin: 0 auto;
-      text-align: center;
-    }
-    .pro-inner h2 {
-      font-size: clamp(1.6rem, 4vw, 2.2rem);
-      font-weight: 800;
-      letter-spacing: -0.6px;
-      margin-bottom: 16px;
-    }
-    .pro-inner p {
-      color: var(--muted);
-      margin-bottom: 32px;
-      font-size: 1rem;
-    }
-    .pro-list {
-      list-style: none;
-      text-align: left;
-      display: inline-block;
-      margin-bottom: 40px;
-    }
-    .pro-list li {
-      display: flex;
-      align-items: flex-start;
-      gap: 10px;
-      margin-bottom: 12px;
-      font-size: 0.95rem;
-    }
-    .pro-list li::before {
-      content: "✓";
-      color: var(--green);
-      font-weight: 700;
-      flex-shrink: 0;
-      margin-top: 1px;
-    }
-    .price-tag {
-      display: inline-block;
-      background: var(--accent-dim);
-      border: 1px solid var(--accent);
-      color: var(--accent);
-      font-size: 0.85rem;
-      font-weight: 600;
-      padding: 6px 16px;
-      border-radius: 20px;
-      margin-bottom: 24px;
-    }
-
-    /* FOOTER */
-    footer {
-      padding: 48px 40px;
-      border-top: 1px solid var(--border);
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      flex-wrap: wrap;
-      gap: 16px;
-    }
-    footer p { color: var(--muted); font-size: 0.85rem; }
-    footer ul { list-style: none; display: flex; gap: 24px; }
-    footer ul li a { color: var(--muted); font-size: 0.85rem; }
-    footer ul li a:hover { color: var(--text); text-decoration: none; }
-  </style>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>TermiForge — SSH, SFTP, and Remote Desktop for iPad</title>
+<meta name="description" content="TermiForge is a professional SSH, SFTP, and Remote Desktop client for iPad. Stream your Mac's display with full keyboard and trackpad control, browse and edit remote files in place, and tunnel localhost ports securely.">
+<link rel="preconnect" href="https://github.com">
+<link rel="stylesheet" href="assets/styles.css">
+<link rel="icon" type="image/svg+xml" href="assets/favicon.svg">
 </head>
 <body>
 
-  <nav>
-    <div class="nav-logo">Termi<span>Forge</span></div>
-    <ul>
-      <li><a href="#features">Features</a></li>
-      <li><a href="#pro">Pro</a></li>
-      <li><a href="support.html">Support</a></li>
-    </ul>
-  </nav>
+<header class="nav">
+  <div class="wrap nav__row">
+    <a href="#" class="nav__brand" aria-label="TermiForge home">
+      <span class="nav__logo" aria-hidden="true"></span>
+      <span class="nav__name">TermiForge</span>
+    </a>
+    <nav class="nav__links">
+      <a href="#features">Features</a>
+      <a href="#download">Download</a>
+      <a href="#privacy">Privacy</a>
+      <a class="btn btn--ghost" href="https://github.com/xlvlxn/termiforge-releases/releases/latest/download/TermiForgeAgent.dmg">Get Mac Agent</a>
+    </nav>
+  </div>
+</header>
 
-  <!-- HERO -->
-  <section class="hero">
-    <div class="badge">Now on the App Store</div>
-    <h1>Your iPad is a<br><em>real dev machine</em></h1>
-    <p>SSH terminal, SFTP file manager with built-in editor, and a browser that reaches private services no one else can see — all in one app.</p>
-    <div class="cta-group">
-      <a href="https://apps.apple.com/app/termiforge/id000000000" class="btn-primary">
-        <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.8-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z"/></svg>
-        Download on the App Store
-      </a>
-      <a href="#features" class="btn-secondary">See Features</a>
-    </div>
-  </section>
+<main>
 
-  <!-- SCREENSHOTS -->
-  <section class="screenshots">
-    <div class="screenshot-track">
-      <img src="screenshots/IMG_0675.PNG" alt="SSH Terminal" />
-      <img src="screenshots/IMG_0677.PNG" alt="SFTP File Manager" />
-      <img src="screenshots/IMG_0678.PNG" alt="Built-in Text Editor" />
-      <img src="screenshots/IMG_0679.PNG" alt="Web Browser Tab" />
-      <img src="screenshots/IMG_0680.PNG" alt="Multiple Tabs" />
-      <img src="screenshots/IMG_0681.PNG" alt="SSH Key Management" />
-      <img src="screenshots/IMG_0673.png" alt="TermiForge Overview" />
-    </div>
-  </section>
-
-  <!-- FEATURES -->
-  <section class="features" id="features">
-    <p class="section-label">Built for Developers</p>
-    <h2 class="section-title">Everything you need,<br>nothing you don't</h2>
-    <div class="feature-grid">
-
-      <div class="feature-card">
-        <span class="feature-icon">⌨️</span>
-        <h3>Full SSH Terminal</h3>
-        <p>Multi-tab SSH sessions with an extended keyboard row — ESC, Tab, Enter, and Ctrl always one tap away. Automatic reconnection handles network switches and background wakes.</p>
+<!-- ——————————————————————————————————————————————————— Hero ——— -->
+<section class="hero">
+  <div class="wrap hero__inner">
+    <div class="hero__copy">
+      <p class="eyebrow">iPadOS · macOS 13+</p>
+      <h1>Your Mac, everywhere.<br>In the terminal, in Files, on your screen.</h1>
+      <p class="lede">
+        TermiForge is a professional SSH, SFTP, and Remote Desktop client built for iPad. Edit remote files
+        as if they were local, tunnel localhost ports through SSH, and stream your Mac's display with full
+        keyboard and trackpad control — over Wi-Fi or the internet.
+      </p>
+      <div class="cta">
+        <a class="btn btn--primary" href="#download">Download Mac Agent</a>
+        <a class="btn btn--ghost" href="#features">See features</a>
       </div>
+      <p class="hero__note">Free on the App Store soon. The Mac Agent below enables Remote Desktop on your Mac.</p>
+    </div>
+    <div class="hero__art" aria-hidden="true">
+      <picture>
+        <img src="screenshots/IMG_0678.PNG" alt="TermiForge running on iPad" loading="lazy">
+      </picture>
+    </div>
+  </div>
+</section>
 
-      <div class="feature-card">
-        <span class="feature-icon">🔑</span>
-        <h3>CLI Tools Just Work</h3>
-        <p>AWS CLI, GitHub CLI, AI assistants, and other developer tools store auth tokens in your system Keychain. TermiForge automatically loads those credentials into every terminal session — no manual token copying, no broken pipelines.</p>
-      </div>
+<!-- —————————————————————————————————————————————— Features —— -->
+<section id="features" class="features">
+  <div class="wrap">
+    <h2 class="section-title">Built for real remote work</h2>
+    <p class="section-sub">Four connection types, one app. Each one does its job without reinventing the wheel.</p>
 
-      <div class="feature-card">
-        <span class="feature-icon">📁</span>
+    <div class="grid grid--4">
+      <article class="card">
+        <div class="card__icon" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><polyline points="4 17 10 11 4 5"/><line x1="12" y1="19" x2="20" y2="19"/></svg>
+        </div>
+        <h3>SSH Terminal</h3>
+        <p>A real xterm-256color shell with tab completion, ANSI colors, scrollback, and hardware-keyboard support. Sessions stay alive when you switch apps.</p>
+      </article>
+
+      <article class="card">
+        <div class="card__icon" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M3 7a2 2 0 0 1 2-2h4l2 3h8a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2Z"/></svg>
+        </div>
         <h3>SFTP File Manager</h3>
-        <p>Browse, upload, rename, and delete files on your server. The built-in text editor lets you open and save files directly — no downloading required. Drag files in from iOS Files to upload instantly.</p>
-      </div>
+        <p>Browse, edit, rename, and upload files on any SFTP server. Tap <em>Open With…</em> to edit in Textastic, Runestone, or any editor — saves flow back to the server automatically.</p>
+      </article>
 
-      <div class="feature-card">
-        <span class="feature-icon">🌐</span>
-        <h3>Browse Private Services</h3>
-        <p>TermiForge tunnels any server port through SSH and opens it in a built-in browser. Preview your dev server, Jupyter notebook, Grafana dashboard, or admin panel — without exposing anything to the internet.</p>
-      </div>
+      <article class="card">
+        <div class="card__icon" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="18" x2="12" y2="21"/></svg>
+        </div>
+        <h3>Remote Desktop</h3>
+        <p>Hardware-accelerated H.264 video with Opus audio, sent over DTLS. Full keyboard, trackpad, and game-controller input. Low latency on LAN; adaptive bitrate over the internet.</p>
+      </article>
 
-      <div class="feature-card">
-        <span class="feature-icon">🔒</span>
-        <h3>Secure by Design</h3>
-        <p>Passwords and SSH keys are stored in the iOS Keychain — encrypted at rest, never sent to any third-party server. Supports password auth, SSH key auth, with on-device key generation and import.</p>
-      </div>
-
-      <div class="feature-card">
-        <span class="feature-icon">📂</span>
-        <h3>Files App Integration</h3>
-        <p>Your remote SFTP directories appear inside iOS Files alongside local documents. Copy, move, and share remote files from any app that supports the document picker.</p>
-      </div>
-
+      <article class="card">
+        <div class="card__icon" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3c2.5 3 2.5 15 0 18M12 3c-2.5 3-2.5 15 0 18"/></svg>
+        </div>
+        <h3>Web (SSH-tunneled)</h3>
+        <p>Reach <code>localhost:8080</code>, Jupyter, a private admin panel, or any internal web service through an encrypted SSH tunnel. No ports to open, no VPN to configure.</p>
+      </article>
     </div>
-  </section>
+  </div>
+</section>
 
-  <!-- PRO -->
-  <section class="pro-section" id="pro">
-    <div class="pro-inner">
-      <div class="price-tag">TermiForge Pro — One-Time Purchase</div>
-      <h2>Unlock the full experience</h2>
-      <p>The browser tab is a Pro feature. Try it free for 14 days — no payment required to start.</p>
-      <ul class="pro-list">
-        <li>Built-in browser for SSH-tunneled services</li>
-        <li>Access dev servers, dashboards, and admin panels privately</li>
-        <li>No VPN. No open ports. No recurring subscription.</li>
-        <li>One-time purchase, yours forever</li>
+<!-- ——————————————————————————————————————————————— Showcase —— -->
+<section class="showcase">
+  <div class="wrap grid grid--2">
+    <div>
+      <h2 class="section-title">Designed for focus,<br>not for attention.</h2>
+      <p>Native iPadOS feel, first-party multitasking, Stage Manager-aware windowing, and a keyboard-first
+         UI. TermiForge gets out of your way the moment you open a tab.</p>
+      <ul class="list">
+        <li>Per-window tab isolation, persisted across OS terminations.</li>
+        <li>Nearby device discovery over Bonjour — no configuration required on your LAN.</li>
+        <li>Face ID-protected credential unlock.</li>
+        <li>Hardware keyboard shortcuts throughout.</li>
       </ul>
-      <a href="https://apps.apple.com/app/termiforge/id000000000" class="btn-primary">
-        Start Free Trial
-      </a>
     </div>
-  </section>
+    <div class="showcase__art">
+      <img src="screenshots/IMG_0677.PNG" alt="File manager view" loading="lazy">
+    </div>
+  </div>
+</section>
 
-  <!-- FOOTER -->
-  <footer>
-    <p>© 2025 TermiForge. All rights reserved.</p>
-    <ul>
-      <li><a href="support.html">Support</a></li>
-      <li><a href="privacy.html">Privacy Policy</a></li>
-    </ul>
-  </footer>
+<!-- ——————————————————————————————————————————————— Download —— -->
+<section id="download" class="download">
+  <div class="wrap">
+    <div class="download__card">
+      <div class="download__copy">
+        <p class="eyebrow">macOS Agent</p>
+        <h2>Install on your Mac in under a minute.</h2>
+        <p>
+          The Mac Agent is a tiny menu-bar app that powers the Remote Desktop feature.
+          It does nothing until the iPad client asks for a session. Open source transport,
+          local-network by default, one drag-and-drop install.
+        </p>
 
+        <ol class="steps">
+          <li><strong>Download</strong> the DMG below.</li>
+          <li><strong>Open it</strong> and drag TermiForgeAgent to the Applications folder.</li>
+          <li><strong>Launch</strong> it — it appears in the menu bar. Grant Screen Recording and Accessibility when prompted.</li>
+          <li><strong>Connect</strong> from the TermiForge iPad client.</li>
+        </ol>
+
+        <div class="cta">
+          <a class="btn btn--primary btn--lg" href="https://github.com/xlvlxn/termiforge-releases/releases/latest/download/TermiForgeAgent.dmg">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3v12M7 10l5 5 5-5M5 21h14"/></svg>
+            Download for macOS
+          </a>
+          <a class="btn btn--ghost" href="https://github.com/xlvlxn/termiforge-releases/releases">All versions</a>
+        </div>
+
+        <p class="meta">Universal binary · macOS 13 Ventura or later · ~700 KB</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ——————————————————————————————————————————————— Privacy ——— -->
+<section id="privacy" class="privacy">
+  <div class="wrap">
+    <h2 class="section-title">Privacy isn't a page we wrote.<br>It's how the product is built.</h2>
+
+    <div class="grid grid--3">
+      <div class="feature">
+        <h3>No analytics. No SDKs.</h3>
+        <p>TermiForge has zero third-party telemetry or tracking. It connects to exactly the servers you configure — and nothing else.</p>
+      </div>
+      <div class="feature">
+        <h3>Credentials stay on-device.</h3>
+        <p>SSH keys, passwords, and Mac login details are stored in iOS Keychain with device-only accessibility. They never sync to iCloud and never leave your iPad.</p>
+      </div>
+      <div class="feature">
+        <h3>End-to-end encrypted.</h3>
+        <p>SSH for Terminal, SFTP, and Web tunneling. DTLS with a per-session PSK for Remote Desktop streaming. No frames, keystrokes, or files ever pass through our servers — because we don't operate any.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<footer class="foot">
+  <div class="wrap foot__row">
+    <div class="foot__brand">
+      <span class="nav__logo" aria-hidden="true"></span>
+      <span>TermiForge</span>
+    </div>
+    <nav class="foot__links">
+      <a href="#features">Features</a>
+      <a href="#download">Download</a>
+      <a href="#privacy">Privacy</a>
+      <a href="https://github.com/xlvlxn/termiforge-releases/releases">Releases</a>
+    </nav>
+    <p class="foot__copy">© <span id="year"></span> TermiForge. Built in Hong Kong.</p>
+  </div>
+</footer>
+
+<script>document.getElementById('year').textContent = new Date().getFullYear();</script>
 </body>
 </html>
