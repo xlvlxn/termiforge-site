@@ -192,8 +192,49 @@ section { padding: 96px 0; }
 .card h3 { margin: 0 0 8px; font-size: 17px; font-weight: 600; letter-spacing: -0.01em; }
 .card p  { margin: 0; color: var(--ink-2); font-size: 15px; line-height: 1.6; }
 
+/* Performance section — lighter, benchmark-feel */
+.perf {
+  background: var(--paper);
+  position: relative;
+}
+.perf::before {
+  content: ""; position: absolute; inset: 0;
+  background:
+    radial-gradient(700px 320px at 90% 0%, rgba(46,108,255,0.06), transparent 70%),
+    radial-gradient(600px 280px at 5% 90%, rgba(255,77,143,0.04), transparent 70%);
+  pointer-events: none;
+}
+.perf .wrap { position: relative; }
+
+/* All-in-one section */
+.all-in-one { background: var(--paper-2); }
+
+/* Featured card (RD flagship) */
+.card--feature {
+  background: linear-gradient(160deg, #0B0D10 0%, #1A1F2A 60%, #2A1F4A 100%);
+  color: #fff;
+  border-color: transparent;
+  position: relative;
+}
+.card--feature .card__icon {
+  background: rgba(46,108,255,0.2);
+  color: #9BB8FF;
+}
+.card--feature h3 { color: #fff; }
+.card--feature p  { color: rgba(255,255,255,0.72); }
+.card__badge {
+  position: absolute; top: 18px; right: 18px;
+  font-size: 10px; font-weight: 700; letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: #FFB4D0;
+  background: rgba(255,180,208,0.12);
+  border: 1px solid rgba(255,180,208,0.3);
+  padding: 3px 8px; border-radius: 999px;
+}
+.card--feature:hover { transform: translateY(-2px); box-shadow: var(--shadow-lg); }
+
 /* Showcase */
-.showcase { background: var(--paper-2); }
+.showcase { background: var(--paper); border-top: 1px solid var(--paper-3); }
 .showcase .section-title { margin-bottom: 18px; }
 .showcase .list {
   list-style: none; padding: 0; margin: 20px 0 0;
