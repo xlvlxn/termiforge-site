@@ -233,6 +233,51 @@ section { padding: 96px 0; }
 }
 .card--feature:hover { transform: translateY(-2px); box-shadow: var(--shadow-lg); }
 
+/* Screenshot strip under features */
+.shots {
+  display: grid; grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 20px; margin-top: 48px;
+}
+.shots figure { margin: 0; }
+.shots img {
+  border-radius: var(--radius-m);
+  box-shadow: var(--shadow-md);
+  aspect-ratio: 4 / 3; object-fit: cover; object-position: center top;
+  background: var(--paper-3);
+  width: 100%;
+}
+.shots figcaption {
+  margin-top: 12px; text-align: center;
+  font-size: 13px; color: var(--ink-3);
+  letter-spacing: 0.02em;
+}
+@media (max-width: 780px) {
+  .shots { grid-template-columns: 1fr; gap: 16px; }
+}
+
+/* System requirements list in download card */
+.reqs {
+  margin: 24px 0 0; padding: 0;
+  display: grid; gap: 10px;
+}
+.reqs > div {
+  display: grid; grid-template-columns: 90px 1fr;
+  gap: 16px; align-items: baseline;
+  padding: 10px 0;
+  border-top: 1px solid rgba(255,255,255,0.08);
+}
+.reqs dt {
+  font-size: 12px; text-transform: uppercase; letter-spacing: 0.1em;
+  color: rgba(255,255,255,0.5); margin: 0;
+}
+.reqs dd {
+  margin: 0; font-size: 14px; color: rgba(255,255,255,0.85);
+  line-height: 1.5;
+}
+@media (max-width: 560px) {
+  .reqs > div { grid-template-columns: 1fr; gap: 4px; }
+}
+
 /* Showcase */
 .showcase { background: var(--paper); border-top: 1px solid var(--paper-3); }
 .showcase .section-title { margin-bottom: 18px; }
