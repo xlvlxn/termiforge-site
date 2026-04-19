@@ -303,6 +303,22 @@ section { padding: 96px 0; }
 
 /* Download */
 .download { background: var(--paper); }
+.download__grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 24px;
+}
+.download__card--ipad {
+  background: linear-gradient(160deg, #2D1B4E 0%, #1D2A4F 55%, #0B1D36 100%);
+}
+.download__card--ipad::before {
+  background: radial-gradient(closest-side, rgba(255,77,143,0.35), transparent) !important;
+}
+.download__card--ipad .eyebrow { color: #FFB4D0 !important; }
+.download__card--ipad h2 { color: #fff; }
+@media (max-width: 900px) {
+  .download__grid { grid-template-columns: 1fr; }
+}
 .download__card {
   background: linear-gradient(160deg, #0B0D10 0%, #1A1F2A 60%, #2A1F4A 100%);
   color: #fff;
